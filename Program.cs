@@ -7,7 +7,7 @@ namespace Kaffeevollautomat
         static void Main(string[] args)
         {
             Logic logic = new();
-            logic.ButtonAuswahl();
+            logic.Menu();
         }
     }
 }
