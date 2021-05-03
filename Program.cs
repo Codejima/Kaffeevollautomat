@@ -7,18 +7,17 @@ namespace Kaffeevollautomat
         static void Main(string[] args)
         {
             Logic logic = new();
-            while (true)
+
+            do
             {
                 logic.Menu();
-            }
-            //fix idle/menu stack FIXED
-            //readkey IMPLEMENTED
+            } while (logic.KeepRunning);
+            
             //längere balken
-            //blinking cursor off FIXED
-            //clearscreen nach zubereitung IMPLEMENTED
             //falsche eingabe durch if abfangen IN PROGRESS
-            //ascii art (logo) DONE
-            Console.WriteLine("");
+            //dictionary ()key(enum zb) value(c m w) store
+            
+            Console.WriteLine("(X_X)");
         }
     }
 }

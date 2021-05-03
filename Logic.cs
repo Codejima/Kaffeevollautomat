@@ -7,8 +7,18 @@ using System.Threading.Tasks;
 
 namespace Kaffeevollautomat
 {
+    enum Recipes
+    {
+        Latte,
+        Cappuccino,
+        Espresso,
+        Schwarz,
+        Reinigung
+    }
+    
     class Logic
     {
+  
         UI ui = new();
         
         public void Menu()
@@ -22,24 +32,25 @@ namespace Kaffeevollautomat
             
             Sortiment(Console.ReadKey(true).Key);
         }
+        
         public void Sortiment(ConsoleKey choice)
         {
             switch (choice)
             {
                 case ConsoleKey.D1:
-                    CheckReserve(20,60,140);
+                    CheckReserve(Recipes.Latte);
                     break;
                 case ConsoleKey.D2:
-                    CheckReserve(25,20,180);
+                    CheckReserve(Recipes.Cappuccino);
                     break;
                 case ConsoleKey.D3:
-                    CheckReserve(30,0,80);
+                    CheckReserve(Recipes.Espresso);
                     break;
                 case ConsoleKey.D4:
-                    CheckReserve(20, 0, 200);
+                    CheckReserve(Recipes.Schwarz);
                     break;
                 case ConsoleKey.D5:
-                    Reinigung();
+                    CheckReserve(Recipes.Reinigung);
                     break;
                 case ConsoleKey.D6:
                     Shutdown();
@@ -53,141 +64,117 @@ namespace Kaffeevollautomat
         int coffee = 800; //800 g
         int milk = 100; //1000 ml
         int water = 2000; //2000 ml
-        public void Reserve(int c, int m, int w)
+        internal bool KeepRunning = true;
+
+        
+    //Recipes
+    //Latte: 20g, 60ml, 140ml
+    //Capu: 25g, 20ml, 180ml
+    //Espresso: 30g, 0, 80ml
+    //Schwarz: 20g, 0, 200ml
+        
+
+        public void CheckReserve(Recipes chosenRecipe)
         {
-            coffee -= c;
-            milk -= m;
-            water -= w;
-            
-            //Recipes
-            //Latte: 20g, 60ml, 140ml
-            //Capu: 25g, 20ml, 180ml
-            //Espresso: 30g, 0, 80ml
-            //Schwarz: 20g, 0, 200ml
-        }
-        public void CheckReserve(int c, int m, int w)
-        {
-            switch ((c, m, w))
+            switch (chosenRecipe) //TODO: fix cariables
             {
-                case (20, 60, 140): //Latte
-                    if (coffee >= 20 && milk >=60 && water >= 140)
+                case Recipes.Latte:
+                    int c = 20; int m = 60; int w = 140;
+
+                    if (IsDispensable(c, m, w))
                     {
                         Console.WriteLine("Latte macchiato wird zubereitet.");
-                        Reserve(c, m, w);
                         ui.ProgressBar();
                         Console.WriteLine("Latte macchiato ist fertig. Smacznego!");
-                        Thread.Sleep(5000);
-                        Console.Clear();
+                        ui.CoffeeAnimation();
                     }
-                    else if (coffee < 20 && milk >=60 && water >= 140)
-                    {
-                        Console.WriteLine("Bitte erst Kaffee nachfüllen.");
-                        Thread.Sleep(5000);
-                        Console.Clear();
-                        return;
-                    }
-                    else if (coffee >= 20 && milk < 60 && water >= 140)
-                    {
-                        Console.WriteLine("Bitte erst Milch nachfüllen.");
-                        Thread.Sleep(5000);
-                        Console.Clear();
-                        return;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Bitte erst Wasser nachfüllen.");
-                        Thread.Sleep(5000);
-                        Console.Clear();
-                        return;
-                    }
+                    Thread.Sleep(3000);
+                    Console.Clear();
                     break;
-                case (25, 20, 180): //Capu
-                    if (coffee >= 25 && milk >= 20 && water >= 180)
+                case Recipes.Cappuccino:
+                    int c = 25; int m = 20; int w = 180;
+
+                    if (IsDispensable(c, m, w))
                     {
                         Console.WriteLine("Cappuccino wird zubereitet.");
-                        Reserve(c, m, w);
                         ui.ProgressBar();
                         Console.WriteLine("Cappuccino ist fertig. Smacznego!");
-                        Thread.Sleep(5000);
-                        Console.Clear();
+                        ui.CoffeeAnimation();
                     }
-                    else if (coffee < 25 && milk >= 20 && water >= 180)
-                    {
-                        Console.WriteLine("Bitte erst Kaffee nachfüllen.");
-                        Thread.Sleep(5000);
-                        Console.Clear();
-                        return;
-                    }
-                    else if (coffee >= 25 && milk < 20 && water >= 180)
-                    {
-                        Console.WriteLine("Bitte erst Milch nachfüllen.");
-                        Thread.Sleep(5000);
-                        Console.Clear();
-                        return;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Bitte erst Wasser nachfüllen.");
-                        Thread.Sleep(5000);
-                        Console.Clear();
-                        return;
-                    }
+                    Thread.Sleep(3000);
+                    Console.Clear();
                     break;
-                case (30, 0, 80): //Espresso
-                    if (coffee >= 30 && water >= 80)
+                case Recipes.Espresso:
+                    int c = 30; int m = 0; int w = 80;
+
+                    if (IsDispensable(c, m, w))
                     {
                         Console.WriteLine("Espresso wird zubereitet.");
-                        Reserve(c, m, w);
                         ui.ProgressBar();
                         Console.WriteLine("Espresso ist fertig. Smacznego!");
-                        Thread.Sleep(5000);
-                        Console.Clear();
+                        ui.CoffeeAnimation();
                     }
-                    else if (coffee >= 30 && water < 80)
-                    {
-                        Console.WriteLine("Bitte erst Wasser nachfüllen.");
-                        Thread.Sleep(5000);
-                        Console.Clear();
-                        return;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Bitte erst Kaffee nachfüllen.");
-                        Thread.Sleep(5000);
-                        Console.Clear();
-                        return;
-                    }
+                    Thread.Sleep(3000);
+                    Console.Clear();
                     break;
-                    ;
-                case (20, 0, 200): //Schwarz
-                    if (coffee >= 20 && water >= 200)
+                case Recipes.Schwarz:
+                    int c = 20; int m = 0; int w = 200;
+
+                    if (IsDispensable(c, m, w))
                     {
                         Console.WriteLine("Kaffee Schwarz wird zubereitet.");
-                        Reserve(c, m, w);
                         ui.ProgressBar();
                         Console.WriteLine("Kaffee Schwarz ist fertig. Smacznego!");
-                        Thread.Sleep(5000);
-                        Console.Clear();
+                        ui.CoffeeAnimation();
                     }
-                    else if (coffee >= 20 && water < 200)
+                    Thread.Sleep(3000);
+                    Console.Clear();
+                    break;
+                case Recipes.Reinigung:
+                    int c = 0; int m = 0; int w = 500;
+
+                    if (IsDispensable(c, m, w))
                     {
-                        Console.WriteLine("Bitte erst Wasser nachfüllen.");
-                        Thread.Sleep(5000);
-                        Console.Clear();
-                        return;
+                        Console.WriteLine("Reinigung wird gestartet.");
+                        ui.ProgressBar();
+                        Console.WriteLine("Reinigung abgeschlossen!");
                     }
-                    else
-                    {
-                        Console.WriteLine("Bitte erst Kaffee nachfüllen.");
-                        Thread.Sleep(5000);
-                        Console.Clear();
-                        return;
-                    }
+                    Thread.Sleep(3000);
+                    Console.Clear();
                     break;
                 default:
                     break;
             }
         }
+
+        private bool IsDispensable(int c, int m, int w)
+        {
+            bool dispensable = true;
+            if (coffee < c)
+            {
+                dispensable = false;
+                Console.WriteLine("Bitte erst Kaffee nachfüllen.");
+            }
+            if (milk < m)
+            {
+                dispensable = false;
+                Console.WriteLine("Bitte erst Milch nachfüllen.");
+            }
+            if (water < w)
+            {
+                dispensable = false;
+                Console.WriteLine("Bitte erst Wasser nachfüllen.");
+            }
+            if (dispensable)
+            {
+                coffee -= c;
+                milk -= m;
+                water -= w; 
+            }
+            return dispensable;
+            
+        }
+
         public void DisplayReserve()
         {
             if (coffee < 160)
@@ -239,31 +226,28 @@ namespace Kaffeevollautomat
                 Console.Write(" | " + water + " ml\n");
             }
         }
-        public void Reinigung()
-        {
-            if (water >= 500)
-            {
-                Console.WriteLine("Reinigung wird gestartet.");
-                ui.ProgressBar();
-                Console.WriteLine("Reinigung abgeschlossen!");
-                Thread.Sleep(5000);
-                Console.Clear();
-                return; 
-            }
-            else
-            {
-                Console.WriteLine("Bitte erst Wasser nachfüllen.");
-                Thread.Sleep(5000);
-                Console.Clear();
-                return;
-            }
-        }
-        public bool Shutdown()
+        //public void Reinigung()
+        //{
+        //    if (water >= 500)
+        //    {
+        //        Console.WriteLine("Reinigung wird gestartet.");
+        //        ui.ProgressBar();
+        //        Console.WriteLine("Reinigung abgeschlossen!");
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("Bitte erst Wasser nachfüllen.");
+        //    }
+        //    Thread.Sleep(3000);
+        //    Console.Clear();
+        //}
+        public void Shutdown()
         {
             Console.WriteLine("Maschine wird ausgeschalten.");
             Thread.Sleep(3000);
-            return false;
+            KeepRunning = false;
             //Environment.Exit(0);
         }
+        
     }
 }

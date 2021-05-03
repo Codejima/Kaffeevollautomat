@@ -59,5 +59,63 @@ namespace Kaffeevollautomat
             Console.WriteLine(@"                     |__/                                                  ");
             //Console.WindowWidth;
         }
+        public void CoffeeAnimation()
+        {
+            var counter = 0;
+            for (int i = 0; i < 20; i++)
+            {
+                Console.Clear();
+
+                switch (counter % 4)
+                {
+                    case 0:
+                        {
+                            Console.WriteLine(@"   ( (      ");
+                            Console.WriteLine(@"    ) )     ");
+                            Console.WriteLine(@"  ........  ");
+                            Console.WriteLine(@"  |      |] ");
+                            Console.WriteLine(@"  \      /  ");
+                            Console.WriteLine(@"   `----'   ");
+                            Console.WriteLine("Fertig! Smacznego!");
+                            break;
+                        }
+                    case 1:
+                        {
+                            Console.WriteLine(@"    ) ) )   ");
+                            Console.WriteLine(@"   ( ( (    ");
+                            Console.WriteLine(@"  ........  ");
+                            Console.WriteLine(@"  |      |] ");
+                            Console.WriteLine(@"  \      /  ");
+                            Console.WriteLine(@"   `----'   ");
+                            Console.WriteLine("Fertig! Smacznego!");
+                            break;
+                        }
+                    case 2:
+                        {
+                            Console.WriteLine(@"   ( (      ");
+                            Console.WriteLine(@"    ) )     ");
+                            Console.WriteLine(@"  ........  ");
+                            Console.WriteLine(@"  |      |] ");
+                            Console.WriteLine(@"  \      /  ");
+                            Console.WriteLine(@"   `----'   ");
+                            Console.WriteLine("Fertig! Smacznego!");
+                            break;
+                        }
+                    case 3:
+                        {
+                            Console.WriteLine(@"    ) ) )   ");
+                            Console.WriteLine(@"   ( ( (    ");
+                            Console.WriteLine(@"  ........  ");
+                            Console.WriteLine(@"  |      |] ");
+                            Console.WriteLine(@"  \      /  ");
+                            Console.WriteLine(@"   `----'   ");
+                            Console.WriteLine("Fertig! Smacznego!");
+                            break;
+                        }
+                }
+                counter++;
+                Thread.Sleep(200);
+            }
+        }
     }
 }
