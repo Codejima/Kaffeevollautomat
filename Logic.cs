@@ -49,9 +49,9 @@ namespace Kaffeevollautomat
                     break;
             }
         }
-        int coffee = 1000;
-        int milk = 1000;
-        int water = 2000;
+        int coffee = 1000; //1000 g
+        int milk = 1000; //1000 ml
+        int water = 2000; //2000 ml
         public void Reserve(int c, int m, int w)
         {
             coffee -= c;
@@ -155,7 +155,6 @@ namespace Kaffeevollautomat
                 {
                     Console.WriteLine("\nReserve: Coffee @ " + coffee/10 + "%, Milk @ " + milk/10 + "%, Water @ " + water/20 + "%");
                     Console.WriteLine("Reserve: Coffee @ " + coffee + "g, Milk @ " + milk + "ml, Water @ " + water + "ml");
-
         }
         public void Reinigung()
         {
@@ -173,7 +172,7 @@ namespace Kaffeevollautomat
         public void Shutdown()
         {
             Console.WriteLine("Maschine wird ausgeschalten.");
-            return;
+            Environment.Exit(0);
         }
     }
 }

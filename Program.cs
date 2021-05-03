@@ -8,8 +8,6 @@ namespace Kaffeevollautomat
         {
             Logic logic = new();
             logic.Menu();
-
-            
         }
     }
 }
