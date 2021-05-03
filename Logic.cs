@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Kaffeevollautomat
 {
     class Logic
     {
+        UI ui = new();
         public void Idle()
         {
             Menu();
@@ -49,7 +51,7 @@ namespace Kaffeevollautomat
                     break;
             }
         }
-        int coffee = 1000; //1000 g
+        int coffee = 800; //800 g
         int milk = 1000; //1000 ml
         int water = 2000; //2000 ml
         public void Reserve(int c, int m, int w)
@@ -73,6 +75,7 @@ namespace Kaffeevollautomat
                     {
                         Console.WriteLine("Latte wird zubereitet.");
                         Reserve(c, m, w);
+                        ui.ProgressBar();
                     }
                     else if (coffee < 20 && milk >=60 && water >= 140)
                     {
@@ -95,6 +98,7 @@ namespace Kaffeevollautomat
                     {
                         Console.WriteLine("Capu wird zubereitet.");
                         Reserve(c, m, w);
+                        ui.ProgressBar();
                     }
                     else if (coffee < 25 && milk >= 20 && water >= 180)
                     {
@@ -117,6 +121,7 @@ namespace Kaffeevollautomat
                     {
                         Console.WriteLine("Espresso wird zubereitet.");
                         Reserve(c, m, w);
+                        ui.ProgressBar();
                     }
                     else if (coffee >= 30 && water < 80)
                     {
@@ -135,6 +140,7 @@ namespace Kaffeevollautomat
                     {
                         Console.WriteLine("Schwarz wird zubereitet.");
                         Reserve(c, m, w);
+                        ui.ProgressBar();
                     }
                     else if (coffee >= 20 && water < 200)
                     {
@@ -152,15 +158,67 @@ namespace Kaffeevollautomat
             }
         }
         public void DisplayReserve()
-                {
-                    Console.WriteLine("\nReserve: Coffee @ " + coffee/10 + "%, Milk @ " + milk/10 + "%, Water @ " + water/20 + "%");
-                    Console.WriteLine("Reserve: Coffee @ " + coffee + "g, Milk @ " + milk + "ml, Water @ " + water + "ml");
+        {
+            if (coffee < 160)
+            {
+                //Console.ForegroundColor = ConsoleColor.White;
+                Console.Write("\nCoffee\t");
+                Console.ForegroundColor = ConsoleColor.Red;
+                UI.WriteProgressBar(coffee / 8);
+                Console.ResetColor();
+                Console.Write(" | " + coffee + " g");
+            }
+            else
+            {
+                Console.Write("\nCoffee\t");
+                Console.ForegroundColor = ConsoleColor.Green;
+                UI.WriteProgressBar(coffee / 8);
+                Console.ResetColor();
+                Console.Write(" | " + coffee + " g");
+            }
+            if (milk < 200)
+            {
+                Console.Write("\nMilk\t");
+                Console.ForegroundColor = ConsoleColor.Red;
+                UI.WriteProgressBar(milk / 10);
+                Console.ResetColor();
+                Console.Write(" | " + milk + " ml");
+            }
+            else
+            {
+                Console.Write("\nMilk\t");
+                Console.ForegroundColor = ConsoleColor.Green;
+                UI.WriteProgressBar(milk / 10);
+                Console.ResetColor();
+                Console.Write(" | " + milk + " ml");
+            }
+            if (water < 200)
+            {
+                Console.Write("\nWater\t");
+                Console.ForegroundColor = ConsoleColor.Red;
+                UI.WriteProgressBar(water / 20);
+                Console.ResetColor();
+                Console.Write(" | " + water + " ml");
+            }
+            else
+            {
+                Console.Write("\nWater\t");
+                Console.ForegroundColor = ConsoleColor.Green;
+                UI.WriteProgressBar(water / 20);
+                Console.ResetColor();
+                Console.Write(" | " + water + " ml\n");
+            }
+                //Console.Write("\nMilk\t"); ConsoleUtility.WriteProgressBar(milk / 10); Console.Write(" | " + milk + " ml");
+                //Console.Write("\nWater\t"); ConsoleUtility.WriteProgressBar(water / 20); Console.Write(" | " + water + " ml\n");
+                //Console.WriteLine("\nReserve: Coffee @ " + coffee/10 + "%, Milk @ " + milk/10 + "%, Water @ " + water/20 + "%");
+                //Console.WriteLine("\nReserve: Coffee @ " + coffee + "g, Milk @ " + milk + "ml, Water @ " + water,4 + "ml"); 
         }
         public void Reinigung()
         {
             if (water >= 500)
             {
                 Console.WriteLine("Reinigung wird gestartet.");
+                ui.ProgressBar();
                 Idle(); 
             }
             else
