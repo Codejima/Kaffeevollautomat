@@ -46,8 +46,18 @@ namespace Kaffeevollautomat
             for (var i = 0; i <= 100; ++i)
             {
                 WriteProgress(i, true);
-                Thread.Sleep(50);
+                Thread.Sleep(5);
             }
+        }
+        public void Logo()
+        {
+            Console.WriteLine(@"   ___          _       _ _                     ___       __  __           ");
+            Console.WriteLine(@"  / __\___   __| | ___ (_|_)_ __ ___   __ _    / __\___  / _|/ _| ___  ___ ");
+            Console.WriteLine(@" / /  / _ \ / _` |/ _ \| | | '_ ` _ \ / _` |  / /  / _ \| |_| |_ / _ \/ _ \");
+            Console.WriteLine(@"/ /__| (_) | (_| |  __/| | | | | | | | (_| | / /__| (_) |  _|  _|  __/  __/");
+            Console.WriteLine(@"\____/\___/ \__,_|\___|/ |_|_| |_| |_|\__,_| \____/\___/|_| |_|  \___|\___|");
+            Console.WriteLine(@"                     |__/                                                  ");
+            //Console.WindowWidth;
         }
     }
 }
