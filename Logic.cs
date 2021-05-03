@@ -15,12 +15,11 @@ namespace Kaffeevollautomat
         public void Menu()
         {
             DisplayReserve();
-            Console.WriteLine("Was möchten Sie?");
-            Console.WriteLine("1 - Latte\n2 - Capu\n3 - Espresso\n4 - Schwarz\n5 - Reinigung starten\n6 - Maschine ausschalten");
-            string choice = Console.ReadLine(); //main
+            Console.WriteLine("\nWas möchten Sie?");
+            Console.WriteLine("1 - Latte\n2 - Capu\n3 - Espresso\n4 - Schwarz\n_________________________\n5 - Reinigung starten\n6 - Maschine ausschalten");
+            string choice = Console.ReadLine(); //main //but why?
             int choiceAsInt;
             choiceAsInt = int.Parse(choice);
-            //CheckReserve();
             Sortiment(choiceAsInt);
             Idle();
         }
@@ -29,16 +28,16 @@ namespace Kaffeevollautomat
             switch (choiceAsInt)
             {
                 case 1:
-                    CheckReserve(2,8,4);
+                    CheckReserve(20,60,140);
                     break;
                 case 2:
-                    CheckReserve(2,4,4);
+                    CheckReserve(25,20,180);
                     break;
                 case 3:
-                    CheckReserve(4,0,3);
+                    CheckReserve(30,0,80);
                     break;
                 case 4:
-                    CheckReserve(3, 0, 4);
+                    CheckReserve(20, 0, 200);
                     break;
                 case 5:
                     Reinigung();
@@ -50,9 +49,9 @@ namespace Kaffeevollautomat
                     break;
             }
         }
-        int coffee = 1; //75
-        int milk = 1; //20
-        int water = 90; //90
+        int coffee = 1000;
+        int milk = 1000;
+        int water = 2000;
         public void Reserve(int c, int m, int w)
         {
             coffee -= c;
@@ -60,27 +59,27 @@ namespace Kaffeevollautomat
             water -= w;
             
             //Recipes
-            //Latte: 2, 8, 4
-            //Capu: 2, 4, 4
-            //Espresso: 4, 0, 3
-            //Schwarz: 3, 0, 4
+            //Latte: 20g, 60ml, 140ml
+            //Capu: 25g, 20ml, 180ml
+            //Espresso: 30g, 0, 80ml
+            //Schwarz: 20g, 0, 200ml
         }
         public void CheckReserve(int c, int m, int w)
         {
             switch ((c, m, w))
             {
-                case (2, 8, 4):
-                    if (coffee >= 2 && milk >=8 && water >= 4)
+                case (20, 60, 140): //Latte
+                    if (coffee >= 20 && milk >=60 && water >= 140)
                     {
                         Console.WriteLine("Latte wird zubereitet.");
                         Reserve(c, m, w);
                     }
-                    else if (coffee < 2 && milk >=8 && water >= 4)
+                    else if (coffee < 20 && milk >=60 && water >= 140)
                     {
                         Console.WriteLine("Bitte erst Kaffee nachfüllen.");
                         Idle();
                     }
-                    else if (coffee >= 2 && milk < 8 && water >= 4)
+                    else if (coffee >= 20 && milk < 60 && water >= 140)
                     {
                         Console.WriteLine("Bitte erst Milch nachfüllen.");
                         Idle();
@@ -91,18 +90,18 @@ namespace Kaffeevollautomat
                         Idle();
                     }
                     break;
-                case (2, 4, 4):
-                    if (coffee >= 2 && milk >= 4 && water >= 4)
+                case (25, 20, 180): //Capu
+                    if (coffee >= 25 && milk >= 20 && water >= 180)
                     {
                         Console.WriteLine("Capu wird zubereitet.");
                         Reserve(c, m, w);
                     }
-                    else if (coffee < 2 && milk >= 4 && water >= 4)
+                    else if (coffee < 25 && milk >= 20 && water >= 180)
                     {
                         Console.WriteLine("Bitte erst Kaffee nachfüllen.");
                         Idle();
                     }
-                    else if (coffee >= 2 && milk < 4 && water >= 4)
+                    else if (coffee >= 25 && milk < 20 && water >= 180)
                     {
                         Console.WriteLine("Bitte erst Milch nachfüllen.");
                         Idle();
@@ -113,13 +112,13 @@ namespace Kaffeevollautomat
                         Idle();
                     }
                     break;
-                case (4, 0, 3):
-                    if (coffee >= 3 && water >= 4)
+                case (30, 0, 80): //Espresso
+                    if (coffee >= 30 && water >= 80)
                     {
-                        Console.WriteLine("Schwarz wird zubereitet.");
+                        Console.WriteLine("Espresso wird zubereitet.");
                         Reserve(c, m, w);
                     }
-                    else if (coffee >= 3 && water < 3)
+                    else if (coffee >= 30 && water < 80)
                     {
                         Console.WriteLine("Bitte erst Wasser nachfüllen.");
                         Idle();
@@ -131,13 +130,13 @@ namespace Kaffeevollautomat
                     }
                     break;
                     ;
-                case (3, 0, 4):
-                    if (coffee >= 3 && water >= 4)
+                case (20, 0, 200): //Schwarz
+                    if (coffee >= 20 && water >= 200)
                     {
                         Console.WriteLine("Schwarz wird zubereitet.");
                         Reserve(c, m, w);
                     }
-                    else if (coffee >= 3 && water < 4)
+                    else if (coffee >= 20 && water < 200)
                     {
                         Console.WriteLine("Bitte erst Wasser nachfüllen.");
                         Idle();
@@ -148,23 +147,33 @@ namespace Kaffeevollautomat
                         Idle();
                     }
                     break;
-
                 default:
                     break;
             }
         }
         public void DisplayReserve()
                 {
-                    Console.WriteLine("Reserve: Coffee @ " + coffee + "%, Milk @ " + milk + "%, Water @ " + water + "%");
-                }
+                    Console.WriteLine("\nReserve: Coffee @ " + coffee/10 + "%, Milk @ " + milk/10 + "%, Water @ " + water/20 + "%");
+                    Console.WriteLine("Reserve: Coffee @ " + coffee + "g, Milk @ " + milk + "ml, Water @ " + water + "ml");
+
+        }
         public void Reinigung()
         {
-            Console.WriteLine("Reinigung wird gestartet.");
-            Idle();
+            if (water >= 500)
+            {
+                Console.WriteLine("Reinigung wird gestartet.");
+                Idle(); 
+            }
+            else
+            {
+                Console.WriteLine("Bitte erst Wasser nachfüllen.");
+                Idle();
+            }
         }
         public void Shutdown()
         {
             Console.WriteLine("Maschine wird ausgeschalten.");
+            return;
         }
     }
 }
