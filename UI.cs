@@ -76,7 +76,7 @@ namespace Kaffeevollautomat
                             Console.WriteLine(@"  |      |] ");
                             Console.WriteLine(@"  \      /  ");
                             Console.WriteLine(@"   `----'   ");
-                            Console.WriteLine("Fertig! Smacznego!");
+                            Console.WriteLine("   Fertig!");
                             break;
                         }
                     case 1:
@@ -87,7 +87,7 @@ namespace Kaffeevollautomat
                             Console.WriteLine(@"  |      |] ");
                             Console.WriteLine(@"  \      /  ");
                             Console.WriteLine(@"   `----'   ");
-                            Console.WriteLine("Fertig! Smacznego!");
+                            Console.WriteLine("   Fertig!");
                             break;
                         }
                     case 2:
@@ -98,7 +98,7 @@ namespace Kaffeevollautomat
                             Console.WriteLine(@"  |      |] ");
                             Console.WriteLine(@"  \      /  ");
                             Console.WriteLine(@"   `----'   ");
-                            Console.WriteLine("Fertig! Smacznego!");
+                            Console.WriteLine("   Fertig!");
                             break;
                         }
                     case 3:
@@ -109,7 +109,7 @@ namespace Kaffeevollautomat
                             Console.WriteLine(@"  |      |] ");
                             Console.WriteLine(@"  \      /  ");
                             Console.WriteLine(@"   `----'   ");
-                            Console.WriteLine("Fertig! Smacznego!");
+                            Console.WriteLine("   Fertig!");
                             break;
                         }
                 }
