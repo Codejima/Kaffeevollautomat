@@ -19,8 +19,7 @@ namespace Kaffeevollautomat
     {
   
         UI ui = new();
-        //Enums enums = new();
-        
+
         public void Menu()
         {
             Console.CursorVisible = false;
@@ -87,7 +86,7 @@ namespace Kaffeevollautomat
             int c;
             int m;
             int w;
-            switch (chosenRecipe) //TODO: fix cariables
+            switch (chosenRecipe)
             {
                 case Recipes.Latte:
                     c = 20; m = 60; w = 140;
@@ -96,7 +95,6 @@ namespace Kaffeevollautomat
                     {
                         Console.WriteLine("Latte macchiato wird zubereitet.");
                         ui.ProgressBar();
-                        //Console.WriteLine("Latte macchiato ist fertig.");
                         ui.CoffeeAnimation();
                     }
                     Thread.Sleep(3000);
@@ -109,7 +107,6 @@ namespace Kaffeevollautomat
                     {
                         Console.WriteLine("Cappuccino wird zubereitet.");
                         ui.ProgressBar();
-                        //Console.WriteLine("Cappuccino ist fertig.");
                         ui.CoffeeAnimation();
                     }
                     Thread.Sleep(3000);
@@ -122,7 +119,6 @@ namespace Kaffeevollautomat
                     {
                         Console.WriteLine("Espresso wird zubereitet.");
                         ui.ProgressBar();
-                        //Console.WriteLine("Espresso ist fertig.");
                         ui.CoffeeAnimation();
                     }
                     Thread.Sleep(3000);
@@ -135,7 +131,6 @@ namespace Kaffeevollautomat
                     {
                         Console.WriteLine("Kaffee Schwarz wird zubereitet.");
                         ui.ProgressBar();
-                        //Console.WriteLine("Kaffee Schwarz ist fertig.");
                         ui.CoffeeAnimation();
                     }
                     Thread.Sleep(3000);
@@ -180,7 +175,8 @@ namespace Kaffeevollautomat
             {
                 coffee -= c;
                 milk -= m;
-                water -= w; 
+                water -= w;
+                Data.WriteReserve(c,m,w); 
             }
             return dispensable;
             

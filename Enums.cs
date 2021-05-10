@@ -16,5 +16,11 @@ namespace Kaffeevollautomat
             Schwarz,
             Reinigung
         }
+        enum Reserves
+        {
+            coffe,
+            milk,
+            water
+        }
     }
 }
