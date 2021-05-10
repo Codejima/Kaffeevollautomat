@@ -14,7 +14,6 @@ namespace Kaffeevollautomat
             } while (logic.KeepRunning);
             
             //längere balken
-            //falsche eingabe durch if abfangen IN PROGRESS
             //dictionary ()key(enum zb) value(c m w) store
             
             Console.WriteLine("(X_X)");

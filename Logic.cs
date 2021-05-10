@@ -15,11 +15,11 @@ namespace Kaffeevollautomat
         Schwarz,
         Reinigung
     }
-    
     class Logic
     {
   
         UI ui = new();
+        //Enums enums = new();
         
         public void Menu()
         {

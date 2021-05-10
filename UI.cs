@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -51,13 +52,30 @@ namespace Kaffeevollautomat
         }
         public void Logo()
         {
-            Console.WriteLine(@"   ___          _       _ _                     ___       __  __           ");
-            Console.WriteLine(@"  / __\___   __| | ___ (_|_)_ __ ___   __ _    / __\___  / _|/ _| ___  ___ ");
-            Console.WriteLine(@" / /  / _ \ / _` |/ _ \| | | '_ ` _ \ / _` |  / /  / _ \| |_| |_ / _ \/ _ \");
-            Console.WriteLine(@"/ /__| (_) | (_| |  __/| | | | | | | | (_| | / /__| (_) |  _|  _|  __/  __/");
-            Console.WriteLine(@"\____/\___/ \__,_|\___|/ |_|_| |_| |_|\__,_| \____/\___/|_| |_|  \___|\___|");
-            Console.WriteLine(@"                     |__/                                                  ");
-            //Console.WindowWidth;
+            string path = @"D:\Users\goDDy\source\repos\Kaffeevollautomat\bin\Debug\net5.0\Logo.txt";
+            if (File.Exists(path))
+            {
+                using (StreamReader reader = new StreamReader("Logo.txt"))
+                {
+                    string line;
+                    int row = 0;
+                   
+                    while ((line = reader.ReadLine()) != null )
+                    {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - line.Length / 2, row++);
+                            Console.WriteLine(line);
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine(@"   ___          _       _ _                     ___       __  __           ");
+                Console.WriteLine(@"  / __\___   __| | ___ (_|_)_ __ ___   __ _    / __\___  / _|/ _| ___  ___ ");
+                Console.WriteLine(@" / /  / _ \ / _` |/ _ \| | | '_ ` _ \ / _` |  / /  / _ \| |_| |_ / _ \/ _ \");
+                Console.WriteLine(@"/ /__| (_) | (_| |  __/| | | | | | | | (_| | / /__| (_) |  _|  _|  __/  __/");
+                Console.WriteLine(@"\____/\___/ \__,_|\___|/ |_|_| |_| |_|\__,_| \____/\___/|_| |_|  \___|\___|");
+                Console.WriteLine(@"                     |__/                                                  ");
+            }
         }
         public void CoffeeAnimation()
         {
