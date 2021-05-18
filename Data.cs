@@ -10,50 +10,118 @@ namespace Kaffeevollautomat
 {
     public class Data
     {
-        public int Number;
-        public string Text;
-
-        int coffee = 800; //800 g
-        int milk = 100; //1000 ml
-        int water = 2000; //2000 ml
-
-        public static void WriteReserve(int c, int m, int w)
+        public const string fileRecipes = "recipes.lel";
+        public const string fileCoffee = "coffee.lel";
+        public ContainerData containerdata = new();
+        List<Recipes> RecipeList = new();
+        
+        public void SaveRecipes()
         {
-            XmlSerializer xml = new(typeof(Data));
-            using (StreamWriter writer = new("log.xml"))
+            using (BinaryWriter writer = new(File.OpenWrite(fileRecipes)))
             {
-                xml.Serialize(writer, data);
-            }
-            coffee -= c;
-            milk -= m;
-            water -= w;
-        }
-
-
-
-        public const string FileName = "Data.xml";
-        public void Load()
-        {
-            if (File.Exists(FileName))
-            {
-                XmlSerializer xml = new(typeof(Data));
-                using (StreamReader reader = new(FileName))
+                writer.Write((byte)RecipeList.Count);
+                foreach (var item in RecipeList)
                 {
-                    Data temp = (Data)xml.Deserialize(reader);
-
-                } 
-            }
-            else
-            {
-                DataList.Add(new Data {ContentType = Reserves.coffee, Current = 123 });
+                    writer.Write((byte)item.recipeName);
+                    writer.Write((byte)item.coffee);
+                    writer.Write((byte)item.milk);
+                    writer.Write((byte)item.water);
+                }
             }
         }
-        public void Save()
+        public void LoadRecipes()
         {
-            using (StreamReader reader = new(FileName))
+            try
             {
-
+                using (BinaryReader reader = new BinaryReader(File.Open(fileRecipes, FileMode.Open)))
+                {
+                    byte RecipeNumber = reader.ReadByte();
+                    for (int i = 0; i < RecipeNumber; i++)
+                    {
+                        Recipes recipes = new();
+                        recipes.recipeName = (RecipeType)reader.ReadByte();
+                        recipes.coffee = reader.ReadByte();
+                        recipes.milk = reader.ReadByte();
+                        recipes.water = reader.ReadByte();
+                        RecipeList.Add(recipes);
+                    }
+                }
             }
+            catch (Exception e) when (e is FileNotFoundException || e is DirectoryNotFoundException)
+            {
+                Recipes recipes = new();
+                recipes.recipeName = RecipeType.Latte;
+                recipes.coffee = 20;
+                recipes.milk = 60;
+                recipes.water = 140;
+                RecipeList.Add(recipes);
+                recipes = new();
+                recipes.recipeName = RecipeType.Cappuccino;
+                recipes.coffee = 25;
+                recipes.milk = 20;
+                recipes.water = 180;
+                RecipeList.Add(recipes);
+                recipes = new();
+                recipes.recipeName = RecipeType.Espresso;
+                recipes.coffee = 30;
+                recipes.milk = 0;
+                recipes.water = 80;
+                RecipeList.Add(recipes);
+                recipes = new();
+                recipes.recipeName = RecipeType.Schwarz;
+                recipes.coffee = 20;
+                recipes.milk = 0;
+                recipes.water = 200;
+                RecipeList.Add(recipes);
+                recipes = new();
+                recipes.recipeName = RecipeType.Reinigung;
+                recipes.coffee = 0;
+                recipes.milk = 0;
+                recipes.water = 500;
+                RecipeList.Add(recipes);
+            }
+        }
+        public void SaveData()
+        {
+            try
+            {
+                using (BinaryWriter writer = new(File.OpenWrite(fileCoffee)))
+                {
+                    writer.Write('L');
+                    writer.Write('E');
+                    writer.Write('L');
+                    writer.Write(containerdata.coffee);
+                    writer.Write(containerdata.milk);
+                    writer.Write(containerdata.water);
+                }
+            }
+            catch (Exception e) when (e is DirectoryNotFoundException || e is AccessViolationException)
+            {
+                Console.WriteLine("Speichern nicht erfolgreich. "+e.Message);
+            }
+        }
+        public bool LoadData()
+        {
+            try
+            {
+                using (BinaryReader reader = new BinaryReader(File.Open(fileCoffee, FileMode.Open)))
+                {
+                    byte[] magicNumber = reader.ReadBytes(3);
+
+                    containerdata.coffee = reader.ReadInt16();
+                    containerdata.milk = reader.ReadInt16();
+                    containerdata.water = reader.ReadInt16();
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                containerdata.coffee = 800;
+                containerdata.milk = 1000;
+                containerdata.water = 2000;
+                return true;
+            }
+            return false;
         }
     }
 }
+
