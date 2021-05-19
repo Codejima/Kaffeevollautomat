@@ -9,7 +9,7 @@ namespace Kaffeevollautomat
     public class ContainerData
     {
         public short coffee; //800 g
-        public short milk = 100; //1000 ml
-        public short water = 640; //2000 ml
+        public short milk; //1000 ml
+        public short water; //2000 ml
     }
 }

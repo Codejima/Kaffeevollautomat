@@ -15,7 +15,6 @@ namespace Kaffeevollautomat
                 logic.Menu();
             } while (logic.KeepRunning);
 
-            //TODO: longer bars
             Console.WriteLine("(X_X)");
         }
     }

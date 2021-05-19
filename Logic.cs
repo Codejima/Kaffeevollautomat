@@ -29,7 +29,6 @@ namespace Kaffeevollautomat
             {
                 ContainerData containerdata = new();
                 Console.WriteLine("FileCoffee not found. Loading with preset values.");
-                containerdata.coffee = 800;
             }
             DisplayReserve();
             
@@ -133,13 +132,12 @@ namespace Kaffeevollautomat
                 default:
                     break;
             }
-            Thread.Sleep(3000);
+            Thread.Sleep(2000);
             Console.Clear();
         }
 
         private bool IsDispensable(short c, short m, short w)
         {
-            
             bool dispensable = true;
             if (data.containerdata.coffee < c)
             {
@@ -161,15 +159,12 @@ namespace Kaffeevollautomat
                 data.containerdata.coffee -= c;
                 data.containerdata.milk -= m;
                 data.containerdata.water -= w;
-                data.SaveData();
             }
             return dispensable;
-            
         }
 
         public void DisplayReserve()
         {
-
             if (data.containerdata.coffee < 160)
             {
                 Console.Write("\nCoffee\t");
@@ -208,7 +203,7 @@ namespace Kaffeevollautomat
                 Console.ForegroundColor = ConsoleColor.Red;
                 UI.WriteProgressBar(data.containerdata.water / 20);
                 Console.ResetColor();
-                Console.Write(" | " + data.containerdata.water + " ml");
+                Console.Write(" | " + data.containerdata.water + " ml\n");
             }
             else
             {
@@ -219,13 +214,14 @@ namespace Kaffeevollautomat
                 Console.Write(" | " + data.containerdata.water + " ml\n");
             }
         }
+
         public void Shutdown()
         {
             Console.WriteLine("Maschine wird ausgeschalten.");
             Thread.Sleep(3000);
             KeepRunning = false;
             data.SaveData();
-            //Environment.Exit(0);
+            data.SaveRecipes();
         }
     }
 }
